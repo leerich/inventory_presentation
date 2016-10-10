@@ -8,6 +8,8 @@
     shell: "tower-cli inventory create -n 'Static inventory' --organization Default"
     register: inventory_output
 
+  - debug: var=inventory_output
+
   - name: find project directory
     find:
       paths: "/var/lib/awx/projects"
