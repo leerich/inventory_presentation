@@ -18,4 +18,4 @@
     register: find_output
 
   - name: import static inventory file
-    shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[3].split(' ')[0]}} --overwrite"
+    shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[4].split(' ')[0]}} --overwrite"
