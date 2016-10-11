@@ -10,6 +10,7 @@
 
   - debug: var=inventory_output
 
+
   - name: find project directory
     find:
       paths: "/var/lib/awx/projects"
@@ -17,5 +18,12 @@
       patterns: "*inventory"
     register: find_output
 
-  - name: import static inventory file
-    shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[4].split(' ')[0]}} --overwrite"
+    - block:
+       - name: import static inventory file if new inventory
+         shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[4].split(' ')[0]}}"
+      rescue:
+       - name: import static inventory file if overwriting
+         shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[4].split(' ')[0]}} --overwrite"
+    
+
+  
