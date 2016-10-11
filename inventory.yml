@@ -2,9 +2,9 @@
 - name: updating my inventory
   hosts: localhost
   connection: local
+  gather_facts: false
 
   tasks:
-  
   - name: create an inventory
     shell: "tower-cli inventory create -n 'Static inventory' --organization Default"
     register: inventory_output
@@ -17,11 +17,9 @@
     register: find_output
 
   - block:
-     - name: import static inventory file if new inventory
+     - name: import static ini file if new inventory
        shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[4].split(' ')[0]}}"
     rescue:
-     - name: import static inventory file if overwriting
+     - name: import static ini file if new inventory
        shell: "tower-manage inventory_import --source={{find_output.files[0].path}}/hosts.ini --inventory-id={{inventory_output.stdout.split('\n')[3].split(' ')[0]}} --overwrite"
-    
-
   
