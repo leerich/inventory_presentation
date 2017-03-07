@@ -1,0 +1,31 @@
+{
+    "southeast": {
+        "children": [
+            "atlanta",
+            "raleigh"
+        ],
+        "vars": {
+            "halon_system_timeout": 30,
+            "self_destruct_countdown": 60,
+            "nameserver": "dns.southeast.example.com",
+            "escape_pods": 2
+        }
+    },
+    "atlanta": {
+        "hosts": [
+            "host1",
+            "host2"
+        ]
+    },
+    "raleigh": {
+        "hosts": [
+            "host2",
+            "host3"
+        ]
+    },
+    "usa": {
+        "children": [
+            "southeast"
+        ]
+    }
+}
